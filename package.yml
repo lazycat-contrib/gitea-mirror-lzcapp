@@ -1,0 +1,15 @@
+package: community.lazycat.app.gitea-mirror
+version: 3.40.4
+name: Gitea Mirror
+description: "Auto-sync GitHub repos to your self-hosted Gitea/Forgejo"
+min_os_version: 1.5.0
+author: RayLabsHQ
+license: AGPL-3.0
+homepage: https://github.com/RayLabsHQ/gitea-mirror
+locales:
+  zh:
+    name: "Gitea Mirror"
+    description: "自动将 GitHub 仓库同步到自托管 Gitea/Forgejo，带 Web 管理界面，支持仓库、Issue、Wiki、Star 等镜像"
+  en:
+    name: "Gitea Mirror"
+    description: "Gitea Mirror auto-syncs GitHub repos to your self-hosted Gitea/Forgejo, with a sleek Web UI and easy Docker deployment"

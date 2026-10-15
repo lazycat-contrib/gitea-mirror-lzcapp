@@ -1,0 +1,37 @@
+application:
+  subdomain: gitea-mirror
+  background_task: true
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://gitea-mirror:4321/
+
+services:
+  gitea-mirror:
+    # upstream: ghcr.io/raylabshq/gitea-mirror:v3.40.4
+    image: ghcr.1ms.run/raylabshq/gitea-mirror:v3.40.4
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:data/gitea-mirror.db
+      - HOST=0.0.0.0
+      - PORT=4321
+      - BASE_URL=/
+      # 反向代理（LazyCat 网关）：外部 URL 指向子域名
+      - BETTER_AUTH_SECRET={{ stable_secret "better_auth_secret" }}
+      - BETTER_AUTH_URL=https://${LAZYCAT_SUBDOMAIN}.${LAZYCAT_BOX_DOMAIN}
+      - PUBLIC_BETTER_AUTH_URL=https://${LAZYCAT_SUBDOMAIN}.${LAZYCAT_BOX_DOMAIN}
+      - BETTER_AUTH_TRUSTED_ORIGINS=https://${LAZYCAT_SUBDOMAIN}.${LAZYCAT_BOX_DOMAIN}
+      # GitHub Token 加密密钥（不提供则应用自动生成；固定下来避免重建后失效）
+      - ENCRYPTION_SECRET={{ stable_secret "encryption_secret" }}
+    binds:
+      - /lzcapp/var/gitea-mirror:/app/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 --spider http://localhost:4321/api/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
