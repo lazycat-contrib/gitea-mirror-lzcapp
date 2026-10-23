@@ -1,5 +1,5 @@
 package: community.lazycat.app.gitea-mirror
-version: 3.43.0
+version: 3.44.0
 name: Gitea Mirror
 description: "Auto-sync GitHub repos to your self-hosted Gitea/Forgejo"
 min_os_version: 1.5.0
