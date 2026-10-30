@@ -9,8 +9,8 @@ application:
       backend: http://gitea-mirror:4321/
 services:
   gitea-mirror:
-    # upstream: ghcr.io/raylabshq/gitea-mirror:v3.48.0
-    image: ghcr.1ms.run/raylabshq/gitea-mirror:v3.48.0
+    # upstream: ghcr.io/raylabshq/gitea-mirror:v3.50.0
+    image: ghcr.1ms.run/raylabshq/gitea-mirror:v3.50.0
     environment:
       - NODE_ENV=production
       - DATABASE_URL=file:data/gitea-mirror.db
